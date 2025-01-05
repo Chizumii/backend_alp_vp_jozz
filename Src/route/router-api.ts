@@ -4,10 +4,10 @@ import express from "express"
 import { UserController } from "../controller/user-controller"
 import { BeritaController } from "../controller/berita-controller"
 import { TournamentController } from "../controller/tournament-controller"
+import { authMiddleware } from "../middleware/auth-middleware"
 
 export const router = express.Router()
-router.post("/api/register", UserController.register);
-router.post("/api/login", UserController.login);
+router.use(authMiddleware)
 
 router.post("/berita", BeritaController.create);
 router.get("/berita", BeritaController.getAll);
