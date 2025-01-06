@@ -34,3 +34,23 @@ export class TeamController {
         next(error);
     }
 }
+
+// Update a team by ID
+static async update(req: Request, res: Response, next: NextFunction) {
+  try {
+      const { id } = req.params;
+      const teamData = req.body;
+      const request = {
+          ...teamData,
+          image: req.file,
+      }
+      const updatedTeam = await TeamService.updateTeam(parseInt(id, 10), request);
+
+      res.status(200).json({
+          message: "Team updated successfully",
+          data: updatedTeam,
+      });
+  } catch (error) {
+      next(error);
+  }
+}
