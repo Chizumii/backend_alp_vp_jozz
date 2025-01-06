@@ -20,6 +20,13 @@ export interface UserResponse {
     nicknamegame: string;
 }
 
+export interface UpdateUserRequest {
+    nama_depan: string;
+    nama_belakang: string;
+    nomor_telp: string;
+    nicknamegame: string;
+}
+
 export interface LoginUserRequest {
     email: string;
     password: string;

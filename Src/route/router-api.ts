@@ -13,6 +13,8 @@ export const router = express.Router()
 router.use(authMiddleware)
 
 router.post("/api/logout", UserController.logout)
+router.put("/api/user", UserController.update);
+
 router.post("/api/berita", upload.single('image'), BeritaController.create);
 router.get("/api/berita", BeritaController.getAll);
 router.get("/api/berita/:id", BeritaController.getById);
