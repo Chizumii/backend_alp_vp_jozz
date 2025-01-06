@@ -54,3 +54,18 @@ static async update(req: Request, res: Response, next: NextFunction) {
       next(error);
   }
 }
+
+// Delete a team by ID
+static async delete(req: Request, res: Response, next: NextFunction) {
+  try {
+      const { id } = req.params;
+      await TeamService.deleteTeam(parseInt(id, 10));
+
+      res.status(200).json({
+          message: "Team deleted successfully",
+      });
+  } catch (error) {
+      next(error);
+  }
+}
+}
