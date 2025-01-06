@@ -1,40 +1,26 @@
 // this router can only be accessed by unauthenticated people
 
 import express from "express"
-import { upload } from "../utils/storage"
 import { UserController } from "../controller/user-controller"
 import { authMiddleware } from "../middleware/auth-middleware"
 import { BeritaController } from "../controller/berita-controller"
 import { TournamentController } from "../controller/tournament-controller"
-<<<<<<< HEAD
-import { LokasiController } from "../controller/lokasi-controller"
 import { TeamController } from "../controller/team-controller"
-=======
-import { authMiddleware } from "../middleware/auth-middleware"
 import { upload } from "../utils/storage"
->>>>>>> 06e40c158979456e069f414d5b74908d8a42a34e
 
 export const router = express.Router()
 router.use(authMiddleware)
 
 router.post("/api/logout", UserController.logout)
-router.post("/api/berita", upload.single('image'), BeritaController.create);
-router.get("/api/berita", BeritaController.getAll);
-router.get("/api/berita/:id", BeritaController.getById);
-router.patch("/api/berita/:id", upload.single('image'), BeritaController.update);
-router.delete("/api/berita/:id", BeritaController.delete);
+router.post("/berita", BeritaController.create);
+router.get("/berita", BeritaController.getAll);
+router.delete("/berita/:id", BeritaController.delete);
 
-router.post("/api/tournament", upload.single('image'), TournamentController.create);
-router.get("/api/tournament", TournamentController.getAll);
-router.patch("/api/tournament/:id", upload.single('image'), TournamentController.update); 
-router.delete("/api/tournament/:id", TournamentController.delete);
+router.post("/tournament", TournamentController.create);
+router.get("/tournament", TournamentController.getAll);
+router.put("/tournament/:id", TournamentController.update); 
 
 router.post("/api/team", upload.single('image'), TeamController.create);
 router.get("/api/team", TeamController.getAll);
 router.patch("/api/team/:id", upload.single('image'), TeamController.update); 
 router.delete("/api/team/:id", TeamController.delete);
-
-router.post("/api/lokasi", LokasiController.create);
-router.get("/api/lokasi", LokasiController.getAll);
-router.patch("/api/lokasi/:id", LokasiController.update);
-router.delete("/api/lokasi/:id", LokasiController.delete);

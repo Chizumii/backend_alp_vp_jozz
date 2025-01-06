@@ -10,7 +10,7 @@ import {
 import { UserValidation } from "../validation/user-validation";
 import { Validation } from "../validation/validation";
 import bcrypt from "bcrypt";
-import { v4 as uuid } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 export class UserService {
     // Register user
@@ -49,7 +49,7 @@ export class UserService {
                 nomor_telp: registerRequest.nomor_telp,
                 nicknamegame: registerRequest.nicknamegame,
                 TeamID: registerRequest.TeamID,
-                Token: uuid(),
+                Token: uuidv4(),
             },
         });
 
