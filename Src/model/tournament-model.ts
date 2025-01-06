@@ -1,10 +1,9 @@
 import { Tournament } from "@prisma/client";
-import exp from "constants";
 
 export interface CreateTournament {
     nama_tournament: string;
     description: string;
-    image: string;
+    image: Express.Multer.File;
     tipe: string;
     biaya: string;
     LokasiID: number;
@@ -33,7 +32,7 @@ export interface TournamentRequest {
 export interface UpdateTournament {
     nama_tournament: string;
     description: string;
-    image: string;
+    image: Express.Multer.File;
     tipe: string;
     biaya: string;
     LokasiID: number;
@@ -59,12 +58,12 @@ export interface getAllTournament {
 // Fungsi untuk konversi dari entitas Prisma ke respons
 export function toTournamentResponse(prismaTournament: Tournament): TournamentResponse {
     return {
-       TournamentID: prismaTournament.TournamentID,
-       nama_tournament: prismaTournament.nama_tournament,
-       description: prismaTournament.description,
-       image: prismaTournament.image,
-       tipe: prismaTournament.tipe,
-       biaya: prismaTournament.biaya,       
-       LokasiID: prismaTournament.LokasiID,
+        TournamentID: prismaTournament.TournamentID,
+        nama_tournament: prismaTournament.nama_tournament,
+        description: prismaTournament.description,
+        image: prismaTournament.image,
+        tipe: prismaTournament.tipe,
+        biaya: prismaTournament.biaya,
+        LokasiID: prismaTournament.LokasiID,
     };
 }

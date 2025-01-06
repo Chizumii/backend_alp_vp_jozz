@@ -1,9 +1,8 @@
-import { Response, NextFunction } from "express"
-import { prismaClient } from "../application/database"
-import { UserRequest } from "../type/user-request"
-import { PrismaClient } from "@prisma/client"
+import { Response, NextFunction } from "express";
+import { PrismaClient } from "@prisma/client";
+import { UserRequest } from "../type/user-request";
 
-const prisma= new PrismaClient();
+const prisma = new PrismaClient();
 
 declare global {
     namespace Express {
@@ -13,31 +12,29 @@ declare global {
     }
 }
 
+export const authMiddleware = async (req: UserRequest, res: Response, next: NextFunction) => {
+    const userId = req.header("X-USER-ID"); // Mengambil user ID dari header
 
-export const authMiddleware = async (
-    req: UserRequest,
-    res: Response,
-    next: NextFunction
-) => {
-    const token = req.get("X-API-TOKEN")
-
-    if (token) {
-        const user = await prismaClient.user.findFirst({
-            where: {
-                Token: token,
-            },
-        })
-
-        if (user) {
-            req.user = user
-            next()
-            return
-        }
+    if (!userId) {
+        res.status(401).json({
+            errors: "Unauthorized",
+        });
+        return;
     }
 
-    res.status(401)
-        .json({
-            errors: "Unauthorized",
-        })
-        .end()
-}
+    const user = await prisma.user.findUnique({
+        where: {
+            UserId: parseInt(userId) // Pastikan userId diubah menjadi angka
+        },
+    });
+
+    if (user) {
+        req.user = user;
+        next();
+        return;
+    }
+
+    res.status(401).json({
+        errors: "Unauthorized",
+    });
+};

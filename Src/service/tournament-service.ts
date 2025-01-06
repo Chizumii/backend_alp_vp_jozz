@@ -12,14 +12,15 @@ export class TournamentService {
             const validatedData = TournamentValidation.CREATE.parse(data);
 
             // Save the tournament to the database
+            const path = JSON.parse(JSON.stringify(validatedData.image)).path.replace(/\\/g, '/').replace('public/', '')
             const newTournament = await prisma.tournament.create({
                 data: {
                     nama_tournament: validatedData.nama_tournament,
                     description: validatedData.description,
-                    image: validatedData.image,
+                    image: path,
                     tipe: validatedData.tipe,
                     biaya: validatedData.biaya,
-                    LokasiID: validatedData.LokasiID,
+                    LokasiID: parseInt(validatedData.LokasiID),
                 },
             });
 
@@ -36,17 +37,20 @@ export class TournamentService {
     static async updateTournament(id: number, data: any) {
         try {
             // Validate the data using Zod
+            console.log(data)
             const validatedData = TournamentValidation.UPDATE.parse(data);
 
             // Update the tournament in the database
+            const path = JSON.parse(JSON.stringify(validatedData.image)).path.replace(/\\/g, '/').replace('public/', '')
             const updatedTournament = await prisma.tournament.update({
                 where: { TournamentID: id },
                 data: {
                     nama_tournament: validatedData.nama_tournament,
                     description: validatedData.description,
-                    image: validatedData.image,
+                    image: path,
                     tipe: validatedData.tipe,
                     biaya: validatedData.biaya,
+                    LokasiID: parseInt(validatedData.LokasiID),
                 },
             });
 
