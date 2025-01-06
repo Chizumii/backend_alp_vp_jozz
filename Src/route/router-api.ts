@@ -18,3 +18,7 @@ router.post("/tournament", TournamentController.create);
 router.get("/tournament", TournamentController.getAll);
 router.put("/tournament/:id", TournamentController.update); 
 
+router.post("/api/team", upload.single('image'), TeamController.create);
+router.get("/api/team", TeamController.getAll);
+router.patch("/api/team/:id", upload.single('image'), TeamController.update); 
+router.delete("/api/team/:id", TeamController.delete);
