@@ -23,6 +23,7 @@ model User {
     nomor_telp    String   @db.VarChar(100)
     nicknamegame  String   @db.VarChar(100)
     TeamID        Int
+    Token         String   @db.VarChar(100)
     Team          Team     @relation(fields: [TeamID], references: [TeamId], onDelete: Cascade, onUpdate: Cascade)
     berita        Berita[]
 }

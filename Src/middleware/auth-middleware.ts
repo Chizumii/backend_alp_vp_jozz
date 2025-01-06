@@ -4,6 +4,14 @@ import { UserRequest } from "../type/user-request";
 
 const prisma = new PrismaClient();
 
+declare global {
+    namespace Express {
+        interface Request {
+            user?: any;
+        }
+    }
+}
+
 export const authMiddleware = async (
     req: UserRequest,
     res: Response,
@@ -15,13 +23,14 @@ export const authMiddleware = async (
         if (userId) {
             const user = await prisma.user.findUnique({
                 where: {
-                    UserId: parseInt(userId, 10), // Pastikan userId diubah menjadi angka
+                    UserId: parseInt(userId, 10) // Pastikan userId diubah menjadi angka
                 },
             });
 
             if (user) {
                 req.user = user;
-                return next();
+                next();
+                return
             }
         }
 
