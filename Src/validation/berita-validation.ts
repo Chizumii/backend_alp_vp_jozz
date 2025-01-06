@@ -6,7 +6,15 @@ export class BeritaValidation {
         judul: z.string().min(1).max(100, "Judul should not exceed 100 characters"),
         caption: z.string().min(1).max(100, "Caption should not exceed 100 characters"),
         judul_berita: z.string().min(1).max(100, "Judul berita should not exceed 100 characters"),
-        image: z.string().url("Image must be a valid URL").max(100, "Image URL should not exceed 100 characters"),
+        image: z.object({
+            fieldname: z.string(),
+            originalname: z.string(),
+            encoding: z.string(),
+            mimetype: z.string(),
+            filename: z.string(),
+            path: z.string(),
+            size: z.number()
+        }).optional(),
         UserId: z.number().int("UserId must be an integer").positive("UserId must be positive"),
     });
 
@@ -15,7 +23,15 @@ export class BeritaValidation {
         judul: z.string().min(1).max(100, "Judul should not exceed 100 characters").optional(),
         caption: z.string().min(1).max(100, "Caption should not exceed 100 characters").optional(),
         judul_berita: z.string().min(1).max(100, "Judul berita should not exceed 100 characters").optional(),
-        image: z.string().url("Image must be a valid URL").max(100, "Image URL should not exceed 100 characters").optional(),
+        image: z.object({
+            fieldname: z.string(),
+            originalname: z.string(),
+            encoding: z.string(),
+            mimetype: z.string(),
+            filename: z.string(),
+            path: z.string(),
+            size: z.number()
+        }).optional(),
         UserId: z.number().int("UserId must be an integer").positive("UserId must be positive").optional(),
     });
 }
