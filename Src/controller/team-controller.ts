@@ -35,37 +35,37 @@ export class TeamController {
     }
 }
 
-// Update a team by ID
-static async update(req: Request, res: Response, next: NextFunction) {
-  try {
-      const { id } = req.params;
-      const teamData = req.body;
-      const request = {
-          ...teamData,
-          image: req.file,
-      }
-      const updatedTeam = await TeamService.updateTeam(parseInt(id, 10), request);
+  // Update a team by ID
+  static async update(req: Request, res: Response, next: NextFunction) {
+    try {
+        const { id } = req.params;
+        const teamData = req.body;
+        const request = {
+            ...teamData,
+            image: req.file,
+        }
+        const updatedTeam = await TeamService.updateTeam(parseInt(id, 10), request);
 
-      res.status(200).json({
-          message: "Team updated successfully",
-          data: updatedTeam,
-      });
-  } catch (error) {
-      next(error);
+        res.status(200).json({
+            message: "Team updated successfully",
+            data: updatedTeam,
+        });
+    } catch (error) {
+        next(error);
+    }
   }
-}
 
-// Delete a team by ID
-static async delete(req: Request, res: Response, next: NextFunction) {
-  try {
-      const { id } = req.params;
-      await TeamService.deleteTeam(parseInt(id, 10));
+  // Delete a team by ID
+  static async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+        const { id } = req.params;
+        await TeamService.deleteTeam(parseInt(id, 10));
 
-      res.status(200).json({
-          message: "Team deleted successfully",
-      });
-  } catch (error) {
-      next(error);
+        res.status(200).json({
+            message: "Team deleted successfully",
+        });
+    } catch (error) {
+        next(error);
+    }
   }
-}
 }
