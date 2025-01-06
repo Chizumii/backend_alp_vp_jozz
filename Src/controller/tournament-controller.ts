@@ -6,7 +6,11 @@ export class TournamentController {
     static async create(req: Request, res: Response, next: NextFunction) {
         try {
             const tournamentData = req.body;
-            const newTournament = await TournamentService.createTournament(tournamentData);
+            const request = {
+                ...tournamentData,
+                image: req.file,
+            }
+            const newTournament = await TournamentService.createTournament(request);
 
             res.status(201).json({
                 message: "Tournament created successfully",
@@ -36,7 +40,11 @@ export class TournamentController {
         try {
             const { id } = req.params;
             const tournamentData = req.body;
-            const updatedTournament = await TournamentService.updateTournament(parseInt(id, 10), tournamentData);
+            const request = {
+                ...tournamentData,
+                image: req.file,
+            }
+            const updatedTournament = await TournamentService.updateTournament(parseInt(id, 10), request);
 
             res.status(200).json({
                 message: "Tournament updated successfully",
@@ -55,6 +63,19 @@ export class TournamentController {
 
             res.status(200).json({
                 message: "Tournament deleted successfully",
+            });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    static async listTournaments(req: Request, res: Response, next: NextFunction) {
+        try {
+            const tournaments = await TournamentService.listTournaments();
+
+            res.status(200).json({
+                message: "Tournaments retrieved successfully",
+                data: tournaments,
             });
         } catch (error) {
             next(error);
