@@ -5,6 +5,7 @@ import { apiRouter } from "../route/api"
 
 const app = express()
 app.use(express.json())
+app.use(express.static("public"))
 app.use(router)
 app.use(apiRouter)
 app.use(errorMiddleware)
