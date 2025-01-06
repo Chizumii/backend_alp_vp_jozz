@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import {
     LoginUserRequest,
     RegisterUserRequest,
+    UpdateUserRequest,
     UserResponse,
 } from "../model/user-model";
 import { UserService } from "../service/user-service";
@@ -38,6 +39,7 @@ export class UserController {
             next(error);
         }
     }
+    
 
     // Logout user
     static async logout(req: Request, res: Response, next: NextFunction) {
@@ -53,4 +55,20 @@ export class UserController {
             next(error);
         }
     }
+    static async update(req: Request, res: Response, next: NextFunction) {
+        try {
+            const userId: string = req.params.id;
+            const request: UpdateUserRequest = req.body as UpdateUserRequest;
+            const response: UserResponse = await UserService.update(userId, request);
+
+            res.status(200).json({
+                message: "User updated successfully",
+                data: response,
+            });
+        } catch (error) {
+            // Pass error to middleware
+            next(error);
+        }
+    }
+    
 }

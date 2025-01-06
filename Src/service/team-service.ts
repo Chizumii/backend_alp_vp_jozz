@@ -19,6 +19,10 @@ export class TeamService {
                     image: path
                 },
             });
+<<<<<<< HEAD
+=======
+
+>>>>>>> d8094244292d004f62d3496cdf3c4362c0ad32cd
             return newTeam;
         } catch (error) {
             if (error instanceof ZodError) {

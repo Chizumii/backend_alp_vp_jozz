@@ -6,6 +6,7 @@ import {
     RegisterUserRequest,
     UserResponse,
     LoginUserRequest,
+    UpdateUserRequest,
 } from "../model/user-model";
 import { UserValidation } from "../validation/user-validation";
 import { Validation } from "../validation/validation";
@@ -83,6 +84,42 @@ export class UserService {
 
         // Return user response
         return toUserResponse(user);
+    }
+
+    // Update user
+    static async update(userId: string, request: UpdateUserRequest): Promise<UserResponse> {
+        // Validate update request
+        const updateRequest = Validation.validate(
+            UserValidation.UPDATE,
+            request
+        );
+
+        // Find existing user
+        const user = await prismaClient.user.findUnique({
+            where: {
+                email: userId,
+            },
+        });
+
+        if (!user) {
+            throw new ResponseError(404, "User not found!");
+        }
+
+        // Update user data in the database
+        const updatedUser = await prismaClient.user.update({
+            where: {
+                email: userId,
+            },
+            data: {
+                nama_depan: updateRequest.nama_depan,
+                nama_belakang: updateRequest.nama_belakang,
+                nomor_telp: updateRequest.nomor_telp,
+                nicknamegame: updateRequest.nicknamegame,
+            },
+        });
+
+        // Convert updated user to UserResponse and return it
+        return toUserResponse(updatedUser);
     }
 
     // Logout user (optional cleanup or session handling)
