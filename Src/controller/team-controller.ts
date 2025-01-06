@@ -8,7 +8,7 @@ export class TeamController {
           const teamData = req.body;
           const request = {
               ...teamData,
-              image: req.file,
+              Image: req.file,
           }
           const newTeam = await TeamService.createTeam(request);
 

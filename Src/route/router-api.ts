@@ -6,7 +6,7 @@ import { authMiddleware } from "../middleware/auth-middleware"
 import { BeritaController } from "../controller/berita-controller"
 import { TournamentController } from "../controller/tournament-controller"
 import { TeamController } from "../controller/team-controller"
-import { upload } from "../utils/upload"
+import { upload } from "../utils/storage"
 
 export const router = express.Router()
 router.use(authMiddleware)
