@@ -5,7 +5,7 @@ export interface CreateBerita {
     judul: string;
     caption: string;
     judul_berita: string;
-    image: string;
+    image?: Express.Multer.File;
     UserId: number; // Relasi ke pengguna
 }
 
@@ -31,7 +31,7 @@ export interface UpdateBerita {
     judul: string;
     caption: string;
     judul_berita: string;
-    image: string;
+    image?: Express.Multer.File;
     UserId: number;
 }
 export interface DeleteBerita {
@@ -47,7 +47,7 @@ export interface GetAllBerita {
     judul: string;
     caption: string;
     judul_berita: string;
-    image: string;  
+    image: string;
     UserId: number;
 }
 
