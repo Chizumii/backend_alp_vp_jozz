@@ -20,3 +20,17 @@ export class TeamController {
           next(error);
       }
   }
+
+  // Get all teams
+  static async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+        const teams = await TeamService.listTeams();
+
+        res.status(200).json({
+            message: "Teams retrieved successfully",
+            data: teams,
+        });
+    } catch (error) {
+        next(error);
+    }
+}
