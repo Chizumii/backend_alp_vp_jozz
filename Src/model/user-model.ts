@@ -12,14 +12,13 @@ export interface RegisterUserRequest {
 }
 
 export interface UserResponse {
-    UserId: number;
+    token? :String
     username: string;
     email: string;
     nama_depan: string;
     nama_belakang: string;
     nomor_telp: string;
     nicknamegame: string;
-    Token: string
 }
 
 export interface UpdateUserRequest {
@@ -36,13 +35,12 @@ export interface LoginUserRequest {
 
 export function toUserResponse(prismaUser: User): UserResponse {
     return {
-        UserId: prismaUser.UserId,
+        token: prismaUser.Token?? "",
         username: prismaUser.username,
         email: prismaUser.email,
         nama_depan: prismaUser.nama_depan,
         nama_belakang: prismaUser.nama_belakang,
         nomor_telp: prismaUser.nomor_telp,
         nicknamegame: prismaUser.nicknamegame,
-        Token: prismaUser.Token
     };
 }

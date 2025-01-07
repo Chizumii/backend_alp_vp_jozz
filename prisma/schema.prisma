@@ -22,10 +22,12 @@ model User {
     nama_belakang String   @db.VarChar(100)
     nomor_telp    String   @db.VarChar(100)
     nicknamegame  String   @db.VarChar(100)
-    TeamID        Int
-    Token         String   @db.VarChar(100)
-    Team          Team     @relation(fields: [TeamID], references: [TeamId], onDelete: Cascade, onUpdate: Cascade)
+    TeamID        Int?
+    Token         String?   @db.VarChar(100)
+    Team          Team?    @relation(fields: [TeamID], references: [TeamId], onDelete: Cascade, onUpdate: Cascade)
     berita        Berita[]
+
+    @@map("users")
 }
 
 model Berita {
@@ -36,6 +38,8 @@ model Berita {
     image        String @db.VarChar(100)
     UserId       Int
     User         User   @relation(fields: [UserId], references: [UserId], onDelete: Cascade, onUpdate: Cascade)
+
+    @@map("beritas")
 }
 
 model Team {
@@ -44,18 +48,22 @@ model Team {
     image          String           @db.VarChar(100)
     User           User[]
     TeamTournament TeamTournament[]
+
+    @@map("teams")
 }
 
 model Tournament {
-    TournamentID   Int              @id @default(autoincrement())
+    TournamentID    Int              @id @default(autoincrement())
     nama_tournament String           @db.VarChar(100)
-    description    String           @db.VarChar(100)
-    image          String           @db.VarChar(100)
-    tipe           String           @db.VarChar(100)
-    biaya          String           @db.VarChar(100)
-    LokasiID       Int
-    lokasi         Lokasi           @relation(fields: [LokasiID], references: [LokasiID], onDelete: Cascade, onUpdate: Cascade)
-    TeamTournament TeamTournament[]
+    description     String           @db.VarChar(100)
+    image           String           @db.VarChar(100)
+    tipe            String           @db.VarChar(100)
+    biaya           String           @db.VarChar(100)
+    LokasiID        Int
+    lokasi          Lokasi           @relation(fields: [LokasiID], references: [LokasiID], onDelete: Cascade, onUpdate: Cascade)
+    TeamTournament  TeamTournament[]
+
+    @@map("tournaments")
 }
 
 model TeamTournament {
@@ -67,10 +75,13 @@ model TeamTournament {
     Tournament   Tournament @relation(fields: [TournamentID], references: [TournamentID], onDelete: Cascade, onUpdate: Cascade)
 
     @@id([TeamID, TournamentID])
+    @@map("team_tournaments")
 }
 
 model Lokasi {
     LokasiID    Int          @id @default(autoincrement())
     lokasiAcara String       @db.VarChar(100)
     Tournament  Tournament[]
+
+    @@map("lokasis")
 }
