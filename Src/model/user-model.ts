@@ -12,6 +12,7 @@ export interface RegisterUserRequest {
 }
 
 export interface UserResponse {
+    token? :String
     username: string;
     email: string;
     nama_depan: string;
@@ -34,6 +35,7 @@ export interface LoginUserRequest {
 
 export function toUserResponse(prismaUser: User): UserResponse {
     return {
+        token: prismaUser.Token?? "",
         username: prismaUser.username,
         email: prismaUser.email,
         nama_depan: prismaUser.nama_depan,
