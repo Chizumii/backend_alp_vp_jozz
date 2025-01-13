@@ -12,15 +12,15 @@ export class TournamentService {
             const validatedData = TournamentValidation.CREATE.parse(data);
 
             // Save the tournament to the database
-            const path = JSON.parse(JSON.stringify(validatedData.image)).path.replace(/\\/g, '/').replace('public/', '')
+            // const path = JSON.parse(JSON.stringify(validatedData.image)).path.replace(/\\/g, '/').replace('public/', '')
             const newTournament = await prisma.tournament.create({
                 data: {
                     nama_tournament: validatedData.nama_tournament,
                     description: validatedData.description,
-                    image: path,
+                    image: validatedData.image,
                     tipe: validatedData.tipe,
                     biaya: validatedData.biaya,
-                    LokasiID: parseInt(validatedData.LokasiID),
+                    LokasiID:parseInt(validatedData.LokasiID),
                 },
             });
 
@@ -47,7 +47,7 @@ export class TournamentService {
                 data: {
                     nama_tournament: validatedData.nama_tournament,
                     description: validatedData.description,
-                    image: path,
+                    image: validatedData.image,
                     tipe: validatedData.tipe,
                     biaya: validatedData.biaya,
                     LokasiID: parseInt(validatedData.LokasiID),

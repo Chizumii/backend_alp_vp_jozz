@@ -3,7 +3,7 @@ import { Tournament } from "@prisma/client";
 export interface CreateTournament {
     nama_tournament: string;
     description: string;
-    image: Express.Multer.File;
+    image: String;
     tipe: string;
     biaya: string;
     LokasiID: number;

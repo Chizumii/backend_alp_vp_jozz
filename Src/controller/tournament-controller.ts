@@ -3,21 +3,18 @@ import { TournamentService } from "../service/tournament-service";
 
 export class TournamentController {
     // Create a new tournament
-    static async create(req: Request, res: Response, next: NextFunction) {
+    static async create(req: Request, res: Response) {
         try {
-            const tournamentData = req.body;
-            const request = {
-                ...tournamentData,
-                image: req.file,
-            }
-            const newTournament = await TournamentService.createTournament(request);
-
+            const tournament = await TournamentService.createTournament(req.body);
             res.status(201).json({
                 message: "Tournament created successfully",
-                data: newTournament,
+                data: tournament,
             });
         } catch (error) {
-            next(error);
+            console.error(error);
+            res.status(500).json({
+                message: "Filed to create Tournament", error
+            });
         }
     }
 
